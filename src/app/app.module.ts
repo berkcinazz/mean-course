@@ -13,6 +13,7 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { AppRoutingModule } from 'src/app-routing.module';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AppRoutingModule } from 'src/app-routing.module';
     FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
