@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { AppRoutingModule } from 'src/app-routing.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatCardModule,
     MatToolbarModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
