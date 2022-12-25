@@ -10,8 +10,7 @@ export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<Post[]>();
 
-  constructor(private http: HttpClient,
-    private router : Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getPosts() {
     return this.http
@@ -28,21 +27,38 @@ export class PostsService {
     return this.postsUpdated.asObservable();
   }
 
-  addPost(title: string, content: string) {
-    const post: Post = { _id: null, title: title, content: content };
+  addPost(title: string, content: string, image: File) {
+    const postData = new FormData();
+    postData.append('title', title);
+    postData.append('content', content);
+    postData.append('image', image, title);
     this.http
-      .post<{ message: string, postId:string }>('http://localhost:3000/api/posts', post)
+      .post<{ message: string; post: Post }>(
+        'http://localhost:3000/api/posts',
+        postData
+      )
       .subscribe((response) => {
-        const postId = response.postId;
+        const post: Post = {
+          _id: response.post._id,
+          title: title,
+          content: content,
+          imagePath: response.post.imagePath,
+        };
+        const postId = response.post._id;
         post._id = postId;
         this.posts.push(post);
         this.postsUpdated.next([...this.posts]);
         this.router.navigate(['/']);
       });
-   }
+  }
 
   updatePost(id: string, title: string, content: string) {
-    const post: Post = { _id: id, title: title, content: content };
+    const post: Post = {
+      _id: id,
+      title: title,
+      content: content,
+      imagePath: null,
+    };
     this.http
       .put('http://localhost:3000/api/posts/' + id, post)
       .subscribe((response) => {
