@@ -2,9 +2,9 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { mimeType } from 'src/app/core/validators/mime-type.validator';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
-import { mimeType } from '../../validators/mime-type.validator';
 
 @Component({
   selector: 'app-post-create',
