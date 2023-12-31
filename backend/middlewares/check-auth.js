@@ -1,9 +1,13 @@
 const jwt = require("jsonwebtoken");
+const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config({ path: path.resolve(__dirname, '../config.env') })
+const jwtSecret = process.env.JWT_KEY;
 
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, "this_should_be_secret_key");
+    const decodedToken = jwt.verify(token, jwtSecret);
     req.userData = { email: decodedToken.email, userId: decodedToken.userId };
     next();
   } catch (error) {

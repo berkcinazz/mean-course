@@ -2,7 +2,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const mongoose = require("mongoose");
-
+const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config({ path: path.resolve(__dirname, '../config.env') })
+const jwtSecret = process.env.JWT_KEY;
 exports.userLogin = (req, res, next) => {
   User.findOne({ email: req.body.email }).then((user) => {
     if (!user) {
@@ -20,7 +23,7 @@ exports.userLogin = (req, res, next) => {
         }
         const token = jwt.sign(
           { email: user.email, userId: user._id },
-          "this_should_be_secret_key",
+          jwtSecret,
           { expiresIn: "1h" }
         );
         res.status(200).json({
