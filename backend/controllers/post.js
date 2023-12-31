@@ -24,7 +24,6 @@ exports.createPost = (req, res, next) => {
     });
   }
 
-
   exports.updatePost =   (req, res, next) => {
     let imagePath = req.body.imagePath;
     if (req.file) {
@@ -42,8 +41,7 @@ exports.createPost = (req, res, next) => {
       { _id: req.params.id, creator: req.userData.userId },
       post
     ).then((result) => {
-      console.log(result);
-      if (result.modifiedCount > 0) {
+      if (result.matchedCount > 0) {
         res.status(200).json({ message: "Update successful!" });
       } else {
         res.status(401).json({ message: "Not authorized!" });
@@ -54,7 +52,6 @@ exports.createPost = (req, res, next) => {
       })
     });
   }
-
 
   exports.getPosts = (req, res, next) => {
     const pageSize = +req.query.pagesize;
