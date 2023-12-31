@@ -9,9 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from 'src/app-routing.module';
 import { CoreModule } from './core/core.module';
 import { ToastrModule } from 'ngx-toastr';
-import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { AngularMaterialModule } from './angular-material.module';
+import { AuthRoutingModule } from './auth/auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +23,8 @@ import { AngularMaterialModule } from './angular-material.module';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    AuthRoutingModule,
     CoreModule,
-    AuthModule,
     PostsModule,
     AngularMaterialModule,
     ToastrModule.forRoot(),
