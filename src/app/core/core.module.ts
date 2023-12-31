@@ -1,20 +1,24 @@
-import { CommonModule } from "@angular/common";
-import {  HTTP_INTERCEPTORS } from "@angular/common/http";
+import { CommonModule } from '@angular/common';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
-    declarations: [],
-    imports: [
-      CommonModule,
-    ],
-    exports: [],
-    providers: [
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: AuthInterceptor,
-        multi: true,
-      },
-    ],
-  })
-  export class CoreModule {}
+  declarations: [],
+  imports: [CommonModule],
+  exports: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+  ],
+})
+export class CoreModule {}
