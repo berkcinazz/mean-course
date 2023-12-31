@@ -4,20 +4,20 @@ import { HttpClient } from '@angular/common/http';
 
 import { Post } from './post.model';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{posts:Post[], postCount:number}>();
-  private maxPosts = 0;
-
+  backendUrl = environment.backendUrl + '/posts/';
   constructor(private http: HttpClient, private router: Router) {}
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     return this.http
       .get<{ message: string; posts: Post[], maxPosts :number }>(
-        'http://localhost:3000/api/posts' + queryParams
+        this.backendUrl + queryParams
       )
       .subscribe((postData) => {
         this.posts = postData.posts;
@@ -36,7 +36,7 @@ export class PostsService {
     postData.append('image', image, title);
     this.http
       .post<{ message: string; post: Post }>(
-        'http://localhost:3000/api/posts',
+        this.backendUrl,
         postData
       )
       .subscribe((response) => {
@@ -63,7 +63,7 @@ export class PostsService {
       }
     }
     this.http
-      .put('http://localhost:3000/api/posts/' + id, postData)
+      .put(this.backendUrl + id, postData)
       .subscribe((response) => {
         this.router.navigate(['/']);
       });
@@ -71,11 +71,11 @@ export class PostsService {
 
   getPost(id: string) {
     return this.http.get<{ _id: string, title: string, content: string, imagePath:string, creator:string }>(
-      'http://localhost:3000/api/posts/' + id
+      this.backendUrl + id
     );
   }
 
   deletePost(id: string) {
-    return this.http.delete('http://localhost:3000/api/posts/' + id)
+    return this.http.delete(this.backendUrl + id)
   }
 }
