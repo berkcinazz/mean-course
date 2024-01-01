@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    backendUrl : "http://localhost:3000/api"
+    backendUrl : "http://berkcinaz-nodeapi.eu-north-1.elasticbeanstalk.com/api"
 };
